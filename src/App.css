@@ -25,6 +25,7 @@
 
 .Box {
   background-color: yellow;
+  visibility: hidden;
   border: 1px solid black;
   width: 35px;
   height: 20px;
@@ -32,4 +33,8 @@
 
 .Highlight {
   background-color: red;
+}
+
+.spotVisible {
+  visibility: visible;
 }

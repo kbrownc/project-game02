@@ -46,10 +46,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// className={`Box${this.state.position === index ? " Highlight" 
-//                 : detour1 === "yes"            ?  "Detour1-visible"
-//                 : detour2 === "yes"            ?  "Detour2-visible"
-//                :  detour3 === "yes"            ?  "Detour3-visible"
-//                :  (detour3 === "yes" || switch = 2) ?  "Detour3-visible"
-//                : ''}`}
