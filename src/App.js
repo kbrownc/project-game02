@@ -18,6 +18,11 @@ let nav = [];
 // boxContent = does this spot have a value in the element
 // specialSquaer = is spot is a special square (miss, gain, detour)
 
+// nav is an array representing a 7 ny 1 grid which contains the game top nav bar row
+// boxNumber = which box in grid
+// isSpotVisible = to drive which boxes are seen (generally or derours)
+// boxContent = does this spot have a value in the element
+
 let Board = function(v1, v2, v3, v4, v5, v6, v7) {
   this.boxNumber      = v1;
   this.boardNumber    = v2;
@@ -65,7 +70,7 @@ function loadBoard() {
   board[3].isSpotVisible = true;
   board[3].boxContent = "Roll";
   board[10].isSpotVisible = true;
-  board[10].boxContent = `{roll}`;
+//  board[10].boxContent = `${this.state.roll}`;
 }
 
 // loadNav loads the nav bar wih the initial values
@@ -89,8 +94,8 @@ loadNav();
 class App extends React.Component {
   state = {
     roll: null,
-    position: 0,
-  }
+    position: 0
+  };
 
   onReset = () => {
     this.setState(({
@@ -98,6 +103,7 @@ class App extends React.Component {
       position: 0,
     }))
     loadBoard();
+    loadNav();
   }
 
   onRoll = () => {
@@ -109,7 +115,6 @@ class App extends React.Component {
   }
 
  render() { 
-  console.log(nav);
     return (
       <div className="App">
         <div className="Nav">      
