@@ -65,12 +65,52 @@ function loadBoard() {
       board[i].isSpotVisible = true;
       board[i].boardNumber = i-71;
   }
+ // detour 1 
+  board[54].isSpotDetour = true;
+  board[53].isSpotDetour = true;
+  board[52].isSpotDetour = true;
+  board[59].isSpotDetour = true;
+  board[66].isSpotDetour = true;
+  board[67].isSpotDetour = true;
+  board[68].isSpotDetour = true;
+// detour 2
+  board[102].isSpotDetour = true;
+  board[95].isSpotDetour = true;
+  board[88].isSpotDetour = true;
+  board[87].isSpotDetour = true;
+  board[86].isSpotDetour = true;
+  board[93].isSpotDetour = true;
+  board[100].isSpotDetour = true;
+// detour 3
+  board[36].isSpotDetour = true;
+  board[37].isSpotDetour = true;
+  board[38].isSpotDetour = true;
+  board[31].isSpotDetour = true;
+  board[24].isSpotDetour = true;
+  board[23].isSpotDetour = true;
+  board[22].isSpotDetour = true;
+// top of board
   board[0].boxContent = "End";
   board[6].boxContent = "Start";
   board[3].isSpotVisible = true;
   board[3].boxContent = "Roll";
   board[10].isSpotVisible = true;
 //  board[10].boxContent = `${this.state.roll}`;
+// special squares - miss a turn
+  board[34].specialSquare = 'miss'
+  board[97].specialSquare = 'miss'
+  board[108].specialSquare = 'miss'
+  board[77].specialSquare = 'miss'
+  board[28].specialSquare = 'miss'
+  board[102].specialSquare = 'miss'
+  board[36].specialSquare = 'miss'
+// special squares - gain a turn
+  board[111].specialSquare = 'gain'
+  board[105].specialSquare = 'gain'
+// special squares - detour
+  board[55].specialSquare = 'detour'
+  board[108].specialSquare = 'detour'
+  board[35].specialSquare = 'detour'
 }
 
 // loadNav loads the nav bar wih the initial values
@@ -135,7 +175,7 @@ class App extends React.Component {
           {
               board.map((item, index) => (
                 <div key={index}
-                className={`Box${item.isSpotVisible ? " spotVisible"    : ''}`}
+               className={`Box${item.isSpotVisible ? " spotVisible"    : ''}`}  
                 >{item.boxContent}
                 </div>
             ))
