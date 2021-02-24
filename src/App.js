@@ -55,7 +55,6 @@ function loadBoard() {
   }
   for  (let i = 0; i < SIZE_OF_GRID_ROWS; i++) {
       board[i*7].isSpotVisible = true;
-      board[i*7].boardNumber = 55 - i;
   }
   for  (let i = 0; i < SIZE_OF_GRID_ROWS; i++) {
       board[i*7+6].isSpotVisible = true;
@@ -63,7 +62,9 @@ function loadBoard() {
   }
   for  (let i = 105; i < SIZE_OF_GRID; i++) {
       board[i].isSpotVisible = true;
-      board[i].boardNumber = i-71;
+  }
+  for  (let i = 0; i < 8; i++) {
+      board[i*7+6].boardNumber = i+1;
   }
  // detour 1 
   board[54].isSpotDetour = true;
@@ -97,20 +98,20 @@ function loadBoard() {
   board[10].isSpotVisible = true;
 //  board[10].boxContent = `${this.state.roll}`;
 // special squares - miss a turn
-  board[34].specialSquare = 'miss'
-  board[97].specialSquare = 'miss'
-  board[108].specialSquare = 'miss'
-  board[77].specialSquare = 'miss'
-  board[28].specialSquare = 'miss'
-  board[102].specialSquare = 'miss'
-  board[36].specialSquare = 'miss'
+  board[34].specialSquare = 'miss';
+  board[97].specialSquare = 'miss';
+  board[108].specialSquare = 'miss';
+  board[77].specialSquare = 'miss';
+  board[28].specialSquare = 'miss';
+  board[102].specialSquare = 'miss';
+  board[36].specialSquare = 'miss';
 // special squares - gain a turn
-  board[111].specialSquare = 'gain'
-  board[105].specialSquare = 'gain'
+  board[111].specialSquare = 'gain';
+  board[105].specialSquare = 'gain';
 // special squares - detour
-  board[55].specialSquare = 'detour'
-  board[108].specialSquare = 'detour'
-  board[35].specialSquare = 'detour'
+  board[55].specialSquare = 'detour';
+  board[108].specialSquare = 'detour';
+  board[35].specialSquare = 'detour';
 }
 
 // loadNav loads the nav bar wih the initial values
@@ -159,10 +160,10 @@ class App extends React.Component {
       <div className="App">
         <div className="Nav">      
           {
-              nav.map((item, index) => (
-                <div key={index}
-                className={`Box${item.isSpotVisibleNav ? " spotVisible"    : ''}`}>
-                {item.boxContentNav}</div>
+            nav.map((item, index) => (
+              <div key={index}
+              className={`Box${item.isSpotVisibleNav ? " spotVisible"    : ''}`}>
+              {item.boxContentNav}</div>
             ))
           }
            <div className="Messages">        
