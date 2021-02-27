@@ -8,6 +8,7 @@ let message = "Roll again";
 let optMessage = "Kim";
 let board = [];
 let nav = [];
+let score = 0;
 
 // board is an array representing a 7 ny 16 grid which contains the game board
 // boxNumber = which box in grid
@@ -39,8 +40,8 @@ let Nav = function(v1, v2, v3) {
   this.boxContentNav    = v3;
 }
 
-// loadBoard loads the board wih the initial values
-function loadBoard() {
+// createBoard loads the board wih the initial values
+function createBoard() {
   for  (let i = 0; i < SIZE_OF_GRID; i++) {
       let boxNumber = i;
       let boardNumber;
@@ -97,6 +98,7 @@ function loadBoard() {
   board[3].boxContent = "Roll";
   board[10].isSpotVisible = true;
 //  board[10].boxContent = `${this.state.roll}`;
+  board[10].boxContent = 5;
 // special squares - miss a turn
   board[34].specialSquare = 'miss';
   board[97].specialSquare = 'miss';
@@ -112,10 +114,11 @@ function loadBoard() {
   board[55].specialSquare = 'detour';
   board[108].specialSquare = 'detour';
   board[35].specialSquare = 'detour';
+  return board;
 }
 
-// loadNav loads the nav bar wih the initial values
-function loadNav() {
+// createrNav loads the nav bar wih the initial values
+function createNav() {
   for  (let i = 0; i < SIZE_OF_NAV; i++) {
       let boxNumberNav     = i;
       let isSpotVisibleNav = false;
@@ -127,32 +130,37 @@ function loadNav() {
   nav[5].isSpotVisibleNav = true;
   nav[5].boxContentNav    = "Score";
   nav[6].isSpotVisibleNav = true;
+  nav[6].boxContentNav = `${score}`;
+  return nav;
 }
-
-loadBoard();
-loadNav();
 
 class App extends React.Component {
   state = {
-    roll: null,
-    position: 0
+    roll: 0,
+    position: 0,
+    board: createBoard(),
+    nav: createNav()
   };
 
   onReset = () => {
     this.setState(({
-      roll: null,
+      roll: 0,
       position: 0,
+      board: createBoard(),
+      nav: createNav()
     }))
-    loadBoard();
-    loadNav();
   }
 
   onRoll = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
+    console.log('randomNumber', randomNumber);
     this.setState((oldState) => ({
       roll: randomNumber,
-      position: Math.min(oldState.position + randomNumber, SIZE_OF_GRID - 1)
+      position: Math.min(oldState.position + randomNumber, SIZE_OF_GRID - 1),
+      board: createBoard(),
+      nav: createNav()
     }));
+    console.log('randomNumber', this.state.roll);
   }
 
  render() { 
@@ -160,9 +168,11 @@ class App extends React.Component {
       <div className="App">
         <div className="Nav">      
           {
-            nav.map((item, index) => (
+            this.state.nav.map((item, index) => (
               <div key={index}
-              className={`Box${item.isSpotVisibleNav ? " spotVisible"    : ''}`}>
+              className={`Box${item.isSpotVisibleNav ? " spotVisible"    : ''}`}
+              onClick={item.boxContentNav === 
+                    "Play" ? this.onReset : undefined}  >
               {item.boxContentNav}</div>
             ))
           }
@@ -174,9 +184,11 @@ class App extends React.Component {
 
         <div className="Board">
           {
-              board.map((item, index) => (
+              this.state.board.map((item, index) => (
                 <div key={index}
-               className={`Box${item.isSpotVisible ? " spotVisible"    : ''}`}  
+               className={`Box${item.isSpotVisible ? " spotVisible"    : ''}
+                  ${item.isCurrentSpot ? " markSpot"    : ''}`} onClick={item.boxContent === 
+                    "Roll" ? this.onRoll : undefined}  
                 >{item.boxContent}
                 </div>
             ))
