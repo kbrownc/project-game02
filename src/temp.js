@@ -7,4 +7,14 @@ temp code for Navbar
          <div>        
             <h4 className="message">{message}</h4>
             <h5 className="optMessage">{optMessage}</h5>
-        </div>.length - 1; i >= 0; i--) {
+        </div>
+
+
+        className={`Box${item.isSpotVisible ? " spotVisible"    : ''}
+
+
+        className={`Box${item.isSpotVisible ? " spotVisible"    : ''}
+                  ${item.isCurrentSpot ? " markSpot"    : ''}`} 
+
+
+        className={`Box${this.state.position === index ? " Highlight" : ''}`}

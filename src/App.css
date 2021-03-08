@@ -18,18 +18,27 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+.Board:hover {
+  background-color: blue;
+}
+
 .Nav {
   display: grid;
   grid-template-columns: repeat(7, 35px);
   grid-template-rows: repeat(1, 20px);
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1px;
+}
+
+.Nav:hover {
+  background-color: blue;
 }
 
 .Box {
   background-color: yellow;
-  visibility: hidden;
+  visibility: visible;
   border: 1px solid black;
   width: 35px;
   height: 20px;
@@ -41,18 +50,16 @@
   background-color: red;
 }
 
-.spotVisible {
-  visibility: visible;
-}
-
 .Messages {
   text-align: center;
   justify-content: center;
-  width: 230px;
-  height: 30px;
-  margin: 4px;
+  height: 60px;
 }
 
 h4, h5 {
-  margin: 4px;
+  text-align: center;
+  justify-content: center;
+  width: 600px;
+  height: 1px;
+  margin: 20px;
 }
