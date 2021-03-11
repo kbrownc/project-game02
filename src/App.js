@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 
-const SIZE_OF_GRID = 112;
-const SIZE_OF_GRID_ROWS = 16;
-const SIZE_OF_NAV = 7;
+//const SIZE_OF_GRID = 112;
+//const SIZE_OF_GRID_ROWS = 16;
+//const SIZE_OF_NAV = 7;
 let message = "Roll again";
 let optMessage = "Kim";
 let score = 0;
@@ -132,10 +132,10 @@ let score = 0;
 //   return nav;
 // }
 
-let nav = [{boxContentNav: "Play", boxCol: 1, boxRow: 1},
-          {boxContentNav: "Score", boxCol: 6, boxRow: 1},
-          {boxContentNav: 0, boxCol: 7, boxRow: 1}
-];
+//let nav = [{boxContentNav: "Play", boxCol: 1, boxRow: 1},
+//          {boxContentNav: "Score", boxCol: 6, boxRow: 1},
+ //         {boxContentNav: "{this.state.score}", boxCol: 7, boxRow: 1}
+//];
 
 let board = [{boxContent: "Start", boxCol: 7, boxRow: 1},
             {boxCol: 7, boxRow: 2},
@@ -194,10 +194,9 @@ let board = [{boxContent: "Start", boxCol: 7, boxRow: 1},
             {boxCol: 1, boxRow: 4},
             {boxCol: 1, boxRow: 3},
             {boxCol: 1, boxRow: 2},
-            {boxContent: "End", boxCol: 1, boxRow: 1},
-            {boxContent: "Roll", boxCol: 4, boxRow: 1},
-            {boxContent: 0, boxCol: 4, boxRow: 2}
+            {boxContent: "End", boxCol: 1, boxRow: 1}
 ];
+console.log(board.splice(1,0,board[7].itemsToAdd[0]));
 
 
 class App extends React.Component {
@@ -205,17 +204,16 @@ class App extends React.Component {
     roll: 0,
     score: 0,
     position: 0,
-    board: board.slice(),
-    nav: nav.slice()
+    board: board.slice()
   };
 
   onReset = () => {
+    console.log("Play");
     this.setState(({
-      roll: 0,
+      roll: null,
       score: 0,
       position: 0,
-      board: board.slice(),
-      nav: nav.slice()
+      board: board.slice()
     }))
   }
 
@@ -225,20 +223,22 @@ class App extends React.Component {
     if (board[this.state.position + randomNumber].extraScore != undefined){
         score = score + board[this.state.position + randomNumber].extraScore;
         if (board[this.state.position + randomNumber].extraScore < 0){
-            optMessage = "Gain a Turn";
+            optMessage = "Wonderful....you get an extra roll";
           }
           else {
-            optMessage = "Lose a Turn";
+            optMessage = "Sorry....you lose a roll";
           }
       };
     // Need to remove the square after the start of the detour
     if (board[this.state.position + randomNumber].itemsToDelete != undefined){
-        const delBoard = board.slice(this.state.position  + randomNumber + 1, 
+        const delBoard = board.splice(this.state.position  + randomNumber + 1, 
             board[this.state.position].itemsToDelete);
     }
     // Need to add the detour squares
     if (board[this.state.position + randomNumber].itemsToAdd != undefined){
-        const insertBoard = board.slice(this.state.position + randomNumber, 0 , 
+        console.log(this.state.position);   
+        console.log(randomNumber);    
+        const insertBoard = board.splice(this.state.position + randomNumber, 0 , 
             board[this.state.position].itemsToAdd[0],
             board[this.state.position].itemsToAdd[1],
             board[this.state.position].itemsToAdd[2],
@@ -246,16 +246,20 @@ class App extends React.Component {
             board[this.state.position].itemsToAdd[4],
             board[this.state.position].itemsToAdd[5],
             board[this.state.position].itemsToAdd[6]);
+        optMessage = "You have a longer journey";
     }
     if (this.state.position >= (board.length - 2)) {
-      message = "You won";
+      message = "Game Complete";
+      optMessage = "Kim";
+    }
+    else {
+        message = "Role Again";
     }
     this.setState((oldState) => ({
       roll: randomNumber,
       score: score + 1,
       position: Math.min(oldState.position + randomNumber, board.length - 2),
-      board: board.slice(),
-      nav: nav.slice()
+      board: board.slice()
     }));
   }
 
@@ -263,29 +267,21 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="Nav">      
-          {
-            this.state.nav.map((item, index) => (
-              <div key={index}
-              className="Box"
-              style={{gridColumn: `${item.boxCol}`, gridRow: `${item.boxRow}`}}
-              onClick={item.boxContentNav === 
-                    "Play" ? this.onReset : undefined}>
-              {item.boxContentNav}</div>
-            ))
-          }
-          </div>
-           <div className="Messages">       
+          <div className="Box" style={{gridColumn: 1, gridRow: 1}} onClick={this.onReset}>"Play"</div>
+          <div className="Box" style={{gridColumn: 6, gridRow: 1}}>"Score"</div>
+          <div className="Box" style={{gridColumn: 7, gridRow: 1}}>{this.state.score}</div>
+        </div>
+        <div className="Messages">       
               <h4 className="message">{message}</h4>
               <h5 className="optMessage">{optMessage}</h5>
-          </div>
-        
-
+        </div>
         <div className="Board">
+            <div className="Box" style={{gridColumn: 4, gridRow: 1}} onClick={this.onRoll}>"Roll"</div>
+            <div className="Box" style={{gridColumn: 4, gridRow: 2}}>{this.state.roll}</div>
           {
               this.state.board.map((item, index) => (
                 <div key={index}
-               className={`Box${this.state.position === index ? " Highlight" : ''}`}
-               onClick={item.boxContent === "Roll" ? this.onRoll : undefined}
+               className={`Box${this.state.position === index ? " markSpot" : ''}`}
                 style={{gridColumn: `${item.boxCol}`, gridRow: `${item.boxRow}`}}  
                 >{item.boxContent}
                 </div>

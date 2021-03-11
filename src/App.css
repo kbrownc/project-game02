@@ -19,9 +19,9 @@
   font-weight: bold;
 }
 
-.Board:hover {
+/*.Board:hover {
   background-color: blue;
-}
+} */
 
 .Nav {
   display: grid;
@@ -32,9 +32,9 @@
   margin-bottom: 1px;
 }
 
-.Nav:hover {
+/* .Nav:hover {
   background-color: blue;
-}
+} */
 
 .Box {
   background-color: yellow;
