@@ -4,7 +4,8 @@ import './App.css';
 let message = "Roll again";
 let optMessage = "Kim";
 let score = 0;
-let board = [{boxContent: "Start", boxCol: 7, boxRow: 1},
+let newBoard = 
+            [{boxContent: "Start", boxCol: 7, boxRow: 1},
             {boxCol: 7, boxRow: 2},
             {boxCol: 7, boxRow: 3},
             {boxCol: 7, boxRow: 4},
@@ -69,15 +70,17 @@ class App extends React.Component {
     roll: 0,
     score: 0,
     position: 0,
-    board: board.slice()
+    board: newBoard.slice()
   };
 
   onReset = () => {
+   message = "Roll again";
+   optMessage = "Kim";
     this.setState(({
       roll: null,
       score: 0,
       position: 0,
-      board: board.slice()
+      board: newBoard.slice()
     }))
   }
 
@@ -86,9 +89,9 @@ class App extends React.Component {
     const randomNumber = 1;
     let scoreAdj = 1;
     // Need to adjust score of miss a turn or gain a turn was landed on
-    if (board[this.state.position + randomNumber].extraScore != undefined){
-        scoreAdj = scoreAdj + board[this.state.position + randomNumber].extraScore;
-        if (board[this.state.position + randomNumber].extraScore < 0){
+    if (this.state.board[this.state.position + randomNumber].extraScore != undefined){
+        scoreAdj = scoreAdj + this.state.board[this.state.position + randomNumber].extraScore;
+        if (this.state.board[this.state.position + randomNumber].extraScore < 0){
             optMessage = "Wonderful....you get an extra roll";
           }
           else {
@@ -98,18 +101,18 @@ class App extends React.Component {
     // Need to remove the square after the start of the detour
     console.log("Position",this.state.position,"Random",randomNumber);
     // Need to add the detour squares and remove a single square
-    if (board[this.state.position + randomNumber].itemsToAdd != undefined){  
-        board.splice(this.state.position + randomNumber + 1, 1 ,  
-            board[this.state.position + randomNumber].itemsToAdd[0],
-            board[this.state.position + randomNumber].itemsToAdd[1],
-            board[this.state.position + randomNumber].itemsToAdd[2],
-            board[this.state.position + randomNumber].itemsToAdd[3],
-            board[this.state.position + randomNumber].itemsToAdd[4],
-            board[this.state.position + randomNumber].itemsToAdd[5],
-            board[this.state.position + randomNumber].itemsToAdd[6]);
+    if (this.state.board[this.state.position + randomNumber].itemsToAdd != undefined){  
+        this.state.board.splice(this.state.position + randomNumber + 1, 1 ,  
+            this.state.board[this.state.position + randomNumber].itemsToAdd[0],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[1],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[2],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[3],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[4],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[5],
+            this.state.board[this.state.position + randomNumber].itemsToAdd[6]);
         optMessage = "You have a longer journey";
     }
-    if (this.state.position >= (board.length)) {
+    if (this.state.position >= (this.state.board.length)) {
       message = "Game Complete";
       optMessage = "Kim";
     }
@@ -120,8 +123,8 @@ class App extends React.Component {
     this.setState((oldState) => ({
       roll: randomNumber,
       score: score,
-      position: Math.min(oldState.position + randomNumber, board.length),
-      board: board.slice()
+      position: Math.min(oldState.position + randomNumber, this.state.board.length),
+      board: this.state.board.slice()
     }));
   }
 
