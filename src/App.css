@@ -46,6 +46,10 @@
   font-weight: bold;
 }
 
+.Box2 {
+  visibility: hidden;
+}
+
 .markSpot {
   background-color: red;
 }

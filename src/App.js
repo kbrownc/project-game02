@@ -69,17 +69,18 @@ class App extends React.Component {
   state = {
     roll: 0,
     score: 0,
-    position: 0,
+    position: -1,
     board: newBoard.slice()
   };
 
   onReset = () => {
    message = "Roll again";
    optMessage = "Kim";
+   score = 0;
     this.setState(({
       roll: null,
       score: 0,
-      position: 0,
+      position: -1,
       board: newBoard.slice()
     }))
   }
@@ -88,7 +89,8 @@ class App extends React.Component {
  //   const randomNumber = Math.floor(Math.random() * 6) + 1;
     const randomNumber = 1;
     let scoreAdj = 1;
-    // Need to adjust score of miss a turn or gain a turn was landed on
+    optMessage = "Kim";
+    // Need to adjust score if 'miss a turn' or 'gain a turn' was landed on
     if (this.state.board[this.state.position + randomNumber].extraScore != undefined){
         scoreAdj = scoreAdj + this.state.board[this.state.position + randomNumber].extraScore;
         if (this.state.board[this.state.position + randomNumber].extraScore < 0){
@@ -99,7 +101,6 @@ class App extends React.Component {
           }
       };
     // Need to remove the square after the start of the detour
-    console.log("Position",this.state.position,"Random",randomNumber);
     // Need to add the detour squares and remove a single square
     if (this.state.board[this.state.position + randomNumber].itemsToAdd != undefined){  
         this.state.board.splice(this.state.position + randomNumber + 1, 1 ,  
@@ -112,7 +113,7 @@ class App extends React.Component {
             this.state.board[this.state.position + randomNumber].itemsToAdd[6]);
         optMessage = "You have a longer journey";
     }
-    if (this.state.position >= (this.state.board.length)) {
+    if ((this.state.position + 1) >= (this.state.board.length - 1)) {
       message = "Game Complete";
       optMessage = "Kim";
     }
@@ -123,7 +124,7 @@ class App extends React.Component {
     this.setState((oldState) => ({
       roll: randomNumber,
       score: score,
-      position: Math.min(oldState.position + randomNumber, this.state.board.length),
+      position: Math.min(oldState.position + randomNumber, this.state.board.length - 1),
       board: this.state.board.slice()
     }));
   }
@@ -141,8 +142,13 @@ class App extends React.Component {
               <h5 className="optMessage">{optMessage}</h5>
         </div>
         <div className="Board">
-            <div className="Box" style={{gridColumn: 4, gridRow: 1}} onClick={this.onRoll}>"Roll"</div>
-            <div className="Box" style={{gridColumn: 4, gridRow: 2}}>{this.state.roll}</div>
+            <div 
+              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : '2'}`}
+              style={{gridColumn: 4, gridRow: 1}} 
+              onClick={this.onRoll}>"Roll"</div>
+            <div 
+              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : '2'}`}
+              style={{gridColumn: 4, gridRow: 2}}>{this.state.roll}</div>
           {
               this.state.board.map((item, index) => (
                 <div key={index}
