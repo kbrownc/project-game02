@@ -133,19 +133,19 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="Nav">      
-          <div className="Box" style={{gridColumn: 1, gridRow: 1}} onClick={this.onReset}>"Play"</div>
-          <div className="Box" style={{gridColumn: 6, gridRow: 1}}>"Score"</div>
+          <div className="Box" style={{gridColumn: 1, gridRow: 1}} onClick={this.onReset}>Play</div>
+          <div className="Box" style={{gridColumn: 6, gridRow: 1}}>Score</div>
           <div className="Box" style={{gridColumn: 7, gridRow: 1}}>{this.state.score}</div>
         </div>
         <div className="Messages">       
-              <h4 className="message">{message}</h4>
-              <h5 className="optMessage">{optMessage}</h5>
+              <h4>{message}</h4>
+              <h5>{optMessage}</h5>
         </div>
         <div className="Board">
             <div 
-              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : '2'}`}
+              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : 'Gone'}`}
               style={{gridColumn: 4, gridRow: 1}} 
-              onClick={this.onRoll}>"Roll"</div>
+              onClick={this.onRoll}>Roll</div>
             <div 
               className={`Box${this.state.position <= this.state.board.length - 2 ? "" : '2'}`}
               style={{gridColumn: 4, gridRow: 2}}>{this.state.roll}</div>

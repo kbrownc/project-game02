@@ -6,9 +6,9 @@
   text-align: center;
 }
 
-.Nav > button {
+/*.Nav > button {
   margin-right: 20px;
-}
+} */
 
 .Board {
   display: grid;
@@ -46,7 +46,7 @@
   font-weight: bold;
 }
 
-.Box2 {
+.BoxGone {
   visibility: hidden;
 }
 
@@ -58,12 +58,10 @@
   text-align: center;
   justify-content: center;
   height: 60px;
+  width: 250px;
+  margin: auto;
 }
 
 h4, h5 {
-  text-align: center;
-  justify-content: center;
-  width: 600px;
-  height: 1px;
-  margin: 20px;
+  margin: 6px;
 }
