@@ -6,10 +6,6 @@
   text-align: center;
 }
 
-/*.Nav > button {
-  margin-right: 20px;
-} */
-
 .Board {
   display: grid;
   grid-template-columns: repeat(7, 35px);
