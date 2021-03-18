@@ -27,12 +27,11 @@ class App extends React.Component {
   }
 
   onRoll = () => {
- //   const randomNumber = Math.floor(Math.random() * 6) + 1;
-    const randomNumber = 1;
+    const randomNumber = Math.floor(Math.random() * 6) + 1;
     let scoreAdj = 1;
     optMessage = "Kim";
     // Need to adjust score if 'miss a turn' or 'gain a turn' was landed on
-    if (this.state.board[this.state.position + randomNumber].extraScore != undefined){
+    if (this.state.board[Math.min(this.state.position + randomNumber, this.state.board.length - 1)].extraScore != undefined){
         scoreAdj = scoreAdj + this.state.board[this.state.position + randomNumber].extraScore;
         if (this.state.board[this.state.position + randomNumber].extraScore < 0){
             optMessage = "Wonderful....you get an extra roll";
@@ -43,7 +42,7 @@ class App extends React.Component {
       };
     // Need to remove the square after the start of the detour
     // Need to add the detour squares and remove a single square
-    if (this.state.board[this.state.position + randomNumber].itemsToAdd != undefined){  
+    if (this.state.board[Math.min(this.state.position + randomNumber, this.state.board.length - 1)  ].itemsToAdd != undefined){  
         this.state.board.splice(this.state.position + randomNumber + 1, 1 ,  
             this.state.board[this.state.position + randomNumber].itemsToAdd[0],
             this.state.board[this.state.position + randomNumber].itemsToAdd[1],
@@ -88,7 +87,7 @@ class App extends React.Component {
               style={{gridColumn: 4, gridRow: 1}} 
               onClick={this.onRoll}>Roll</div>
             <div 
-              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : '2'}`}
+              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : 'Gone'}`}
               style={{gridColumn: 4, gridRow: 2}}>{this.state.roll}</div>
           {
               this.state.board.map((item, index) => (
