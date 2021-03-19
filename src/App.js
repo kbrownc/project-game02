@@ -13,7 +13,7 @@ class App extends React.Component {
     position: -1,
     board: newBoard.slice()
   };
-
+// reset game (Play button)
   onReset = () => {
    message = "Roll again";
    optMessage = "Kim";
@@ -25,7 +25,7 @@ class App extends React.Component {
       board: newBoard.slice()
     }))
   }
-
+// roll dice (roll button)
   onRoll = () => {
     const randomNumber = Math.floor(Math.random() * 6) + 1;
     let scoreAdj = 1;
@@ -40,9 +40,9 @@ class App extends React.Component {
             optMessage = "Sorry....you lose a roll";
           }
       };
-    // Need to remove the square after the start of the detour
-    // Need to add the detour squares and remove a single square
-    if (this.state.board[Math.min(this.state.position + randomNumber, this.state.board.length - 1)  ].itemsToAdd != undefined){  
+    // Add the detour squares and remove a single square after detour
+    if (this.state.board[Math.min
+    (this.state.position + randomNumber, this.state.board.length - 1)  ].itemsToAdd!= undefined){  
         this.state.board.splice(this.state.position + randomNumber + 1, 1 ,  
             this.state.board[this.state.position + randomNumber].itemsToAdd[0],
             this.state.board[this.state.position + randomNumber].itemsToAdd[1],
@@ -53,6 +53,7 @@ class App extends React.Component {
             this.state.board[this.state.position + randomNumber].itemsToAdd[6]);
         optMessage = "You have a longer journey";
     }
+    // Check for end of Game
     if ((this.state.position + 1) >= (this.state.board.length - 1)) {
       message = "Game Complete";
       optMessage = "Kim";
@@ -68,12 +69,12 @@ class App extends React.Component {
       board: this.state.board.slice()
     }));
   }
-
+// render
  render() { 
     return (
       <div className="App">
         <div className="Nav">      
-          <div className="Box" style={{gridColumn: 1, gridRow: 1}} onClick={this.onReset}>Play</div>
+          <div className="Box Butt" style={{gridColumn: 1, gridRow: 1}} onClick={this.onReset}>Play</div>
           <div className="Box" style={{gridColumn: 6, gridRow: 1}}>Score</div>
           <div className="Box" style={{gridColumn: 7, gridRow: 1}}>{this.state.score}</div>
         </div>
@@ -83,7 +84,7 @@ class App extends React.Component {
         </div>
         <div className="Board">
             <div 
-              className={`Box${this.state.position <= this.state.board.length - 2 ? "" : 'Gone'}`}
+              className={`Butt Box${this.state.position <= this.state.board.length - 2 ? "" : 'Gone'}`}
               style={{gridColumn: 4, gridRow: 1}} 
               onClick={this.onRoll}>Roll</div>
             <div 
